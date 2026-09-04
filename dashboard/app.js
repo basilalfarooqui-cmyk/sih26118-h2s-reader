@@ -1,4 +1,4 @@
-const BACKEND_URL = "http://localhost:3000";
+const BACKEND_URL = "https://sih26118-h2s-reader-production.up.railway.app";
 
 let allRecords = [];
 let currentSource = "app";

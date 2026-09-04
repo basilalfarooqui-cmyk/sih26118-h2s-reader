@@ -1,1 +1,1 @@
-export const BACKEND_URL = "http://localhost:3000";
+export const BACKEND_URL = "https://sih26118-h2s-reader-production.up.railway.app";
