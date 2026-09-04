@@ -1,0 +1,12 @@
+{
+  "name": "sih26118-h2s-dashboard",
+  "version": "1.0.0",
+  "description": "Static web dashboard for H2S Exposure Dosimeter Reader",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
