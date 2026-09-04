@@ -67,4 +67,33 @@ router.get('/worker/:workerId', async (req, res) => {
   res.json(data);
 });
 
+router.delete('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  const { error } = await supabase.from('readings').delete().eq('id', id);
+
+  if (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+
+  res.json({ success: true });
+});
+
+router.delete('/', async (req, res) => {
+  const { ids } = req.body;
+
+  let query = supabase.from('readings').delete();
+  query = Array.isArray(ids) && ids.length > 0
+    ? query.in('id', ids)
+    : query.not('id', 'is', null);
+
+  const { error } = await query;
+
+  if (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
+
+  res.json({ success: true });
+});
+
 module.exports = router;

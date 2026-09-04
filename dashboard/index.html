@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H2S Exposure Records</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <button id="hamburgerBtn" class="icon-btn" aria-label="Menu">&#9776;</button>
+    <h1>H2S Exposure Records</h1>
+    <div class="toggle-group" role="group" aria-label="Source filter">
+      <button id="toggleApp" class="toggle-btn active" data-source="app">App</button>
+      <button id="toggleHardware" class="toggle-btn" data-source="hardware">Hardware</button>
+    </div>
+  </header>
+
+  <nav id="menuPanel" class="menu-panel hidden">
+    <button id="exportPdfBtn">Export as PDF</button>
+    <button id="exportXlsxBtn">Export as Excel (.xlsx)</button>
+    <button id="deleteSelectedBtn">Delete selected records</button>
+    <button id="deleteAllBtn">Delete all records</button>
+  </nav>
+
+  <main>
+    <input id="searchInput" type="text" placeholder="Search by worker name or worker ID..." class="search-bar">
+
+    <p id="countText" class="count-text">Showing 0 records</p>
+
+    <div id="statusMessage" class="status-message hidden"></div>
+
+    <div class="table-wrapper">
+      <table id="readingsTable">
+        <thead>
+          <tr>
+            <th class="checkbox-col"><input type="checkbox" id="selectAllCheckbox"></th>
+            <th data-sort="worker_name" class="sortable">Worker Name <span class="sort-arrow"></span></th>
+            <th>Worker ID</th>
+            <th>Hex Code</th>
+            <th data-sort="time_recorded" class="sortable">Time Recorded <span class="sort-arrow"></span></th>
+            <th>Time Synced</th>
+            <th>Source</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <div id="confirmDialog" class="dialog-overlay hidden">
+    <div class="dialog-box">
+      <p id="confirmMessage">Are you sure?</p>
+      <div class="dialog-actions">
+        <button id="confirmCancelBtn">Cancel</button>
+        <button id="confirmOkBtn" class="danger">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
