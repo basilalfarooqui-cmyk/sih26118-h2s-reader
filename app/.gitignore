@@ -5,3 +5,5 @@ web-build/
 *.log
 .env
 expo-env.d.ts
+/android/
+/ios/

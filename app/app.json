@@ -14,7 +14,8 @@
         {
           "cameraPermission": "Allow the app to access your camera to read the dosimeter strip."
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "ios": {
       "supportsTablet": true,

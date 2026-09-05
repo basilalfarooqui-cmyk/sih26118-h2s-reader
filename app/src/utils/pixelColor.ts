@@ -91,24 +91,25 @@ function toHex(value: number): string {
   return value.toString(16).padStart(2, "0");
 }
 
+export interface CropRegion {
+  originX: number;
+  originY: number;
+  width: number;
+  height: number;
+}
+
 /**
- * Crops the center 20% x 20% region of the photo and shrinks it to a single
+ * Crops the given pixel region of the photo and shrinks it to a single
  * pixel, whose color approximates the average color of that region.
  */
-export async function extractCenterHexColor(
+export async function extractHexColorFromRegion(
   photoUri: string,
-  photoWidth: number,
-  photoHeight: number
+  region: CropRegion
 ): Promise<string> {
-  const cropWidth = Math.round(photoWidth * 0.2);
-  const cropHeight = Math.round(photoHeight * 0.2);
-  const originX = Math.round((photoWidth - cropWidth) / 2);
-  const originY = Math.round((photoHeight - cropHeight) / 2);
-
   const result = await ImageManipulator.manipulateAsync(
     photoUri,
     [
-      { crop: { originX, originY, width: cropWidth, height: cropHeight } },
+      { crop: region },
       { resize: { width: 1, height: 1 } },
     ],
     { base64: true, format: ImageManipulator.SaveFormat.PNG }
@@ -120,4 +121,16 @@ export async function extractCenterHexColor(
 
   const { r, g, b } = decodeSinglePixelPng(result.base64);
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
+}
+
+/** Default capture region: the center 20% x 20% of the photo. */
+export function centerCropRegion(photoWidth: number, photoHeight: number): CropRegion {
+  const width = Math.round(photoWidth * 0.2);
+  const height = Math.round(photoHeight * 0.2);
+  return {
+    width,
+    height,
+    originX: Math.round((photoWidth - width) / 2),
+    originY: Math.round((photoHeight - height) / 2),
+  };
 }
